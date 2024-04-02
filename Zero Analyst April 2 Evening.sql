@@ -1,0 +1,28 @@
+--Write an SQL query to find customers who 
+--haven't made any purchases in the last month, 
+--assuming today's date is April 2, 2024. 
+
+
+--customer details
+--who have not done purchase in last month(orders)
+
+--SELECT * FROM CUSTOMERS
+--SELECT * FROM ORDERS
+
+
+
+SELECT * FROM CUSTOMERS 
+WHERE CUSTOMER_ID NOT IN
+(SELECT CUSTOMER_ID FROM ORDERS 
+WHERE EXTRACT (MONTH FROM ORDER_DATE)=EXTRACT(MONTH FROM CURRENT_DATE)-1
+AND EXTRACT(YEAR FROM ORDER_DATE)=EXTRACT(YEAR FROM CURRENT_DATE))
+
+
+--Your task Find customer who has done purchase this month and also last month
+
+SELECT * FROM CUSTOMERS 
+WHERE CUSTOMER_ID IN
+(SELECT CUSTOMER_ID FROM ORDERS 
+WHERE EXTRACT (MONTH FROM ORDER_DATE)=EXTRACT(MONTH FROM CURRENT_DATE)-1
+AND EXTRACT(YEAR FROM ORDER_DATE)=EXTRACT(YEAR FROM CURRENT_DATE))
+
